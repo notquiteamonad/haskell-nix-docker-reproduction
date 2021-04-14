@@ -1,0 +1,4 @@
+resolver: lts-17.8
+nix:
+  enable: true
+  shell-file: nix/stack-shell.nix

@@ -1,0 +1,6 @@
+.stack-work/
+*~
+
+# Nix builds
+/result
+/result-*
