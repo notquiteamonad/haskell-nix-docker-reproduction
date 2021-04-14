@@ -25,11 +25,9 @@ let
         "--ghc-option=-optl=-static"
         "--ghc-option=-optl=-L${pkgs.gmp6.override { withStatic = true; }}/lib"
       ];
+      dontStrip = false;
+      enableShared = false;
     };
-  builtStaticExecutable = pkgs.runCommand
-    "server"
-    { }
-    "cp -r ${server-prod-static} $out";
 
   # Docker image for Cloud Run
   alpine = pkgs.dockerTools.pullImage {
@@ -45,7 +43,7 @@ let
     fromImage = alpine;
     fromImageName = "alpine";
     fromImageTag = "3.13.4";
-    contents = "${builtStaticExecutable}";
+    contents = "${server-prod-static}";
   };
 in
-{ inherit server builtStaticExecutable cloud-run-image; }
+{ inherit server cloud-run-image; }
